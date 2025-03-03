@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-public class ItreationMethodSubset {
+public class IterationMethodSubset {
+
     public static void main(String[] args) {
         int [] arr ={1,2,3,4};
         ArrayList<ArrayList<Integer>> ans= subset(arr);
