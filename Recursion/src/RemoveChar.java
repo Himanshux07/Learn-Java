@@ -1,8 +1,8 @@
 public class RemoveChar {
 
     public static void main(String[] args) {
-        System.out.println(remove("aeroplane",""));
-        skipString("I love apple and banana","");
+        System.out.println(remove("iatemangoandbanana",""));
+        skipString("Iloveappleandbanana","");
     }
 
     static String remove(String opr,String str){
