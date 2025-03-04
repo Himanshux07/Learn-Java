@@ -5,7 +5,7 @@ public class subset {
     public static void main(String[] args) {
 //       subs("","abc");
 
-         System.out.println(subsList("","hello"));
+         System.out.println(subsList("","helloworld"));
 
 
 
