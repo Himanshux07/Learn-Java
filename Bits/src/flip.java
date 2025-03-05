@@ -1,8 +1,8 @@
 // minimum number of flip to change the number
 public class flip {
     public static void main(String[] args) {
-        int start=7;
-        int goal=10;
+        int start=10;
+        int goal=7;
         int ans=start^goal;
         int count=0;
         while(ans>0){
