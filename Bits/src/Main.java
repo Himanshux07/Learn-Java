@@ -30,7 +30,7 @@ public class Main {
 
         System.out.println(isOdd(6));
 
-        int [] arr= {1,4,6,1,4,3,3};
+        int [] arr= {1,4,6,1,6,9,11};
         System.out.println(Single(arr));
 
         System.out.println(bit(5,3));
