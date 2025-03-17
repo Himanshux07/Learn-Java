@@ -6,7 +6,7 @@ public class IterationMethodSubset {
         int [] arr ={1,2,3,4};
         ArrayList<ArrayList<Integer>> ans= subset(arr);
         for(ArrayList<Integer> list : ans){
-            System.out.println(list);
+            System.out.print(list + " ");
         }
 
     }
