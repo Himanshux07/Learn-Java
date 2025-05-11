@@ -1,7 +1,9 @@
+package OOPS1;
+
 public class introToOOPs {
     public static void main(String args[]){
 
-//        Student s1=new Student();
+//        OOPS1.Student s1=new OOPS1.Student();
 //
 //        s1.name="Himu";
 //        s1.rollNo=8124;
@@ -30,7 +32,7 @@ class Student{
     int rollNo;
     float marks;
 
-//    Student(){
+//    OOPS1.Student(){
 //
 //    }
 
