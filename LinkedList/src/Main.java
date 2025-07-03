@@ -10,6 +10,7 @@ public class Main{
 
 
         list.Display();
+        System.out.println(list.size);
 
     }
 }

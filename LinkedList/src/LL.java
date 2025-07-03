@@ -9,6 +9,7 @@ public class LL {
 
         node.next=head;
         head=node;
+        size++;
 
         if(tail==null){
             tail=head;
