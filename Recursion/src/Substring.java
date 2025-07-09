@@ -4,7 +4,7 @@ import java.lang.*;
 class Substring {
     public static void main(String[] args) throws java.lang.Exception {
         Scanner sc = new Scanner(System.in);
-//        abhay
+
         String str = sc.next();
 
         ArrayList<String> list = new ArrayList<>();
