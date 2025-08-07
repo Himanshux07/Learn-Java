@@ -1,38 +1,43 @@
-import java.io.*;
-import java.sql.SQLOutput;
-import java.util.*;
+import java.util.Scanner;
 
 public class Codeforces {
-    public static void main(String[] args)  {
-        Scanner sc= new Scanner(System.in);
 
-        int t= sc.nextInt();
-        while(t-->0){
-            int n=sc.nextInt();
-            int q=sc.nextInt();
+    static boolean isPossible(int a, int b, int c) {
 
-            String s1=sc.next();
-            String s2=sc.next();
+        int r1 = 2 * b - c;
+        if (r1 > 0 && r1 % a == 0) return true;
 
-            while(q-->0){
-                int l=sc.nextInt();
-                int r=sc.nextInt();
 
-                int [] f1= new int[26];
-                int [] f2= new int[26];
+        int sum = a + c;
+        if (sum % 2 == 0) {
+            int mid = sum / 2;
+            if (mid > 0 && mid % b == 0) return true;
+        }
 
-                for(int i=l-1;i<r;i++){
-                    f1[s1.charAt(i)-'a']++;
-                    f2[s2.charAt(i)-'a']++;
-                }
-                int ans=0;
-                for(int i=0;i<26;i++){
-                    ans+=Math.abs(f1[i]-f2[i]);
 
-                }
+        int r3 = 2 * b - a;
+        if (r3 > 0 && r3 % c == 0) return true;
 
-                System.out.println(ans/2);
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+
+            if (isPossible(a, b, c)) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
             }
         }
+
+        sc.close();
     }
 }
