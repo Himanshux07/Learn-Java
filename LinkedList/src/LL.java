@@ -6,7 +6,6 @@ public class LL {
 
     public void InsertFirstEle(int value){
         Node node = new Node(value);
-
         node.next=head;
         head=node;
         size++;
