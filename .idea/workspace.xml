@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78d9b981-f58d-43ca-b1a4-9341d3e60344" name="Changes" comment="StacknQueue">
+    <list default="true" id="78d9b981-f58d-43ca-b1a4-9341d3e60344" name="Changes" comment="Binary Search">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +45,7 @@
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Himan/IdeaProjects/Learn-Java&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Himan/IdeaProjects/Learn-Java/StacknQueue/src/Main.java&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Himan/IdeaProjects/Learn-Java/Arrays/BinarySearch/src/Main.java&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -163,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760092930413</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Binary Search">
+      <option name="closed" value="true" />
+      <created>1760094452449</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1760094452449</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -172,7 +180,8 @@
     <MESSAGE value="added dp" />
     <MESSAGE value="deleted" />
     <MESSAGE value="StacknQueue" />
-    <option name="LAST_COMMIT_MESSAGE" value="StacknQueue" />
+    <MESSAGE value="Binary Search" />
+    <option name="LAST_COMMIT_MESSAGE" value="Binary Search" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -191,6 +200,11 @@
           <url>file://$PROJECT_DIR$/StacknQueue/src/Main.java</url>
           <line>26</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arrays/BinarySearch/src/Main.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
