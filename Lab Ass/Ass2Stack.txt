@@ -1,0 +1,145 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+#include <algorithm> 
+
+
+class node {
+public:
+    char data;
+    node* next;
+
+    node(char x) {
+        data = x;
+        next = nullptr;
+    }
+
+    node(char x, node* d) {
+        data = x;
+        next = d;
+    }
+};
+
+class impstack {
+    node* temp;
+
+public:
+    impstack() {
+        temp = NULL;
+    }
+
+    void push(char x) {
+        node* newnode = new node(x);
+        newnode->next = temp;
+        temp = newnode;
+    }
+
+    int pop() {
+        if (temp == NULL) {
+            return -1;
+        }
+
+        node* popi = temp;
+        int x = popi->data;
+        temp = temp->next;
+        delete popi;
+        
+        return x;
+    }
+
+    int top() {
+        if (temp == NULL) {
+            return -1;
+        }
+        return temp->data;
+    }
+
+    bool Empty(){
+        if(temp==nullptr) return true;
+        return false;
+    }
+};
+
+bool isOperator(char c){
+    return (c=='+' || c=='-' || c=='*' || c=='/');
+}
+int preceed(char ch){
+    if(ch=='*' || ch=='/') return 2;
+    if(ch=='-' || ch=='+') return 1;
+    
+    return -1;
+}
+
+
+
+string postfixCon(string infix){
+    impstack s;
+    string postfix="";
+    for(char c : infix){
+        if(isalnum(c)) postfix+=c;
+        
+        else if(c=='(') s.push(c);
+        
+        else if(c==')'){
+            while(!s.Empty() && s.top()!='('){
+                postfix+=s.top();
+                s.pop();
+            }
+            if(!s.Empty() && s.top()=='(') s.pop();
+        }
+        
+        else if(isOperator(c)){
+            while(!s.Empty() && preceed(c)<=preceed(s.top())){
+                postfix+=s.top();
+                s.pop();
+            }
+            s.push(c);
+        }
+    }
+    while(!s.Empty()){
+        postfix+=s.top();
+        s.pop();
+    }
+    return postfix;
+}
+
+string prefixCon(string infix){
+   
+    std::reverse(infix.begin(),infix.end());
+    
+    for (int i = 0; i < infix.length(); ++i) {
+        if (infix[i] == '(') infix[i] = ')';
+        else if (infix[i] == ')') infix[i] = '(';
+    }
+    
+    string ans = postfixCon(infix);
+    
+    std::reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+int main(){
+
+    cout<<"What operation you want to do"<<endl;
+    cout<<"1. Infix to Postfix \n2. Infix to Prefix "<<endl; 
+    int n;
+    cin>>n;
+    string str;
+    
+    switch(n){
+        case 1: cout<<"Enter your infix Expression"<<endl;
+            cin>>str;
+            cout<<"Postfix Expression is :"<< postfixCon(str) <<endl;
+            break;
+              
+        case 2: cout<<"Enter your infix Expression"<<endl;
+            cin>>str;
+            cout<<"Prefix Expression is :"<< prefixCon(str) <<endl;
+            break;
+
+        default: 
+            cout<<"Invalid Input"<<endl;
+            break;
+    }
+  
+}

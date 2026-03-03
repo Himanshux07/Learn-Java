@@ -1,0 +1,292 @@
+
+from collections import deque
+
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.count = 1  # handles duplicates
+        self.left = None
+        self.right = None
+
+class BinarySearchTree:
+    def __init__(self):
+        self.root = None
+
+    # a) Insert
+    def insert(self, key):
+        self.root = self._insert(self.root, key)
+
+    def _insert(self, node, key):
+        if node is None:
+            return Node(key)
+        if key < node.key:
+            node.left = self._insert(node.left, key)
+        elif key > node.key:
+            node.right = self._insert(node.right, key)
+        else:
+            node.count += 1
+        return node
+
+    # b) Delete
+    def delete(self, key):
+        self.root = self._delete(self.root, key)
+
+    def _delete(self, node, key):
+        if node is None:
+            return None
+        if key < node.key:
+            node.left = self._delete(node.left, key)
+        elif key > node.key:
+            node.right = self._delete(node.right, key)
+        else:
+            if node.count > 1:
+                node.count -= 1
+                return node
+            if node.left is None:
+                return node.right
+            elif node.right is None:
+                return node.left
+            successor = self._min_value_node(node.right)
+            node.key, node.count = successor.key, successor.count
+            node.right = self._delete_node_with_key(node.right, successor.key)
+        return node
+
+    def _delete_node_with_key(self, node, key):
+        if node is None:
+            return None
+        if key < node.key:
+            node.left = self._delete_node_with_key(node.left, key)
+        elif key > node.key:
+            node.right = self._delete_node_with_key(node.right, key)
+        else:
+            if node.left is None:
+                return node.right
+            elif node.right is None:
+                return node.left
+            successor = self._min_value_node(node.right)
+            node.key, node.count = successor.key, successor.count
+            node.right = self._delete_node_with_key(node.right, successor.key)
+        return node
+
+    def _min_value_node(self, node):
+        current = node
+        while current.left is not None:
+            current = current.left
+        return current
+
+    # c) Search
+    def search(self, key):
+        return self._search(self.root, key)
+
+    def _search(self, node, key):
+        if node is None:
+            return False
+        if key < node.key:
+            return self._search(node.left, key)
+        elif key > node.key:
+            return self._search(node.right, key)
+        else:
+            return True
+
+    # d) Traversals
+    def inorder(self):
+        self._inorder(self.root)
+        print()
+
+    def _inorder(self, node):
+        if node:
+            self._inorder(node.left)
+            print(f"{node.key}({node.count})", end=" ")
+            self._inorder(node.right)
+
+    def preorder(self):
+        self._preorder(self.root)
+        print()
+
+    def _preorder(self, node):
+        if node:
+            print(f"{node.key}({node.count})", end=" ")
+            self._preorder(node.left)
+            self._preorder(node.right)
+
+    def postorder(self):
+        self._postorder(self.root)
+        print()
+
+    def _postorder(self, node):
+        if node:
+            self._postorder(node.left)
+            self._postorder(node.right)
+            print(f"{node.key}({node.count})", end=" ")
+
+    # e) Depth (height)
+    def depth(self):
+        return self._height(self.root)
+
+    def _height(self, node):
+        if node is None:
+            return 0
+        return 1 + max(self._height(node.left), self._height(node.right))
+
+    # f) Mirror image
+    def get_mirror_copy(self):
+        mirror = BinarySearchTree()
+        mirror.root = self._mirror_copy(self.root)
+        return mirror
+
+    def _mirror_copy(self, node):
+        if node is None:
+            return None
+        mirrored = Node(node.key)
+        mirrored.count = node.count
+        mirrored.left = self._mirror_copy(node.right)
+        mirrored.right = self._mirror_copy(node.left)
+        return mirrored
+
+    def mirror_in_place(self):
+        self._mirror_in_place(self.root)
+
+    def _mirror_in_place(self, node):
+        if node:
+            node.left, node.right = node.right, node.left
+            self._mirror_in_place(node.left)
+            self._mirror_in_place(node.right)
+
+    # g) Create copy
+    def create_copy(self):
+        copy = BinarySearchTree()
+        copy.root = self._copy(self.root)
+        return copy
+
+    def _copy(self, node):
+        if node is None:
+            return None
+        new_node = Node(node.key)
+        new_node.count = node.count
+        new_node.left = self._copy(node.left)
+        new_node.right = self._copy(node.right)
+        return new_node
+
+    # h) Display parents with children
+    def display_parents_with_children(self):
+        self._display_parents(self.root)
+
+    def _display_parents(self, node):
+        if node is None:
+            return
+        if node.left or node.right:
+            print(f"Parent {node.key} ->", end=" ")
+            if node.left:
+                print(f"L:{node.left.key}", end=" ")
+            if node.right:
+                print(f"R:{node.right.key}", end=" ")
+            print()
+        self._display_parents(node.left)
+        self._display_parents(node.right)
+
+    # i) Display leaf nodes
+    def display_leaf_nodes(self):
+        leaves = []
+        self._collect_leaves(self.root, leaves)
+        if leaves:
+            print("Leaf nodes:", *leaves)
+        else:
+            print("No leaf nodes (tree empty)")
+
+    def _collect_leaves(self, node, leaves):
+        if node is None:
+            return
+        if node.left is None and node.right is None:
+            leaves.append(node.key)
+        else:
+            self._collect_leaves(node.left, leaves)
+            self._collect_leaves(node.right, leaves)
+
+    # j) Display level-wise
+    def display_level_wise(self):
+        if self.root is None:
+            print("Tree is empty")
+            return
+        q = deque([self.root])
+        while q:
+            level_count = len(q)
+            for _ in range(level_count):
+                node = q.popleft()
+                print(f"{node.key}({node.count})", end=" ")
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            print()
+
+# Menu-driven main program
+def main():
+    bst = BinarySearchTree()
+
+    while True:
+        print("\n===== Binary Search Tree Operations =====")
+        print("1. Insert")
+        print("2. Delete")
+        print("3. Search")
+        print("4. Display Traversals")
+        print("5. Display Depth")
+        print("6. Display Mirror Image")
+        print("7. Create Copy")
+        print("8. Display Parents with Children")
+        print("9. Display Leaf Nodes")
+        print("10. Display Level Wise")
+        print("11. Mirror Original Tree In-place")
+        print("12. Exit")
+
+        choice = input("Choose option: ")
+        if not choice.isdigit():
+            print("Invalid input. Enter number.")
+            continue
+        choice = int(choice)
+
+        if choice == 1:
+            val = int(input("Enter integer to insert: "))
+            bst.insert(val)
+            print(f"{val} inserted.")
+        elif choice == 2:
+            val = int(input("Enter integer to delete: "))
+            if bst.search(val):
+                bst.delete(val)
+                print(f"{val} deleted.")
+            else:
+                print(f"{val} not found.")
+        elif choice == 3:
+            val = int(input("Enter integer to search: "))
+            print(f"{val} {'found' if bst.search(val) else 'not found'}.")
+        elif choice == 4:
+            print("Inorder:", end=" "); bst.inorder()
+            print("Preorder:", end=" "); bst.preorder()
+            print("Postorder:", end=" "); bst.postorder()
+        elif choice == 5:
+            print("Tree depth (height):", bst.depth())
+        elif choice == 6:
+            mirror = bst.get_mirror_copy()
+            print("Mirror Image Traversal (Level-wise):")
+            mirror.display_level_wise()
+        elif choice == 7:
+            copy = bst.create_copy()
+            print("Created a deep copy. Inorder of copy:")
+            copy.inorder()
+        elif choice == 8:
+            bst.display_parents_with_children()
+        elif choice == 9:
+            bst.display_leaf_nodes()
+        elif choice == 10:
+            bst.display_level_wise()
+        elif choice == 11:
+            bst.mirror_in_place()
+            print("Tree mirrored in place.")
+            bst.inorder()
+        elif choice == 12:
+            print("Exiting.")
+            break
+        else:
+            print("Invalid choice.")
+
+if __name__ == "__main__":
+    main()

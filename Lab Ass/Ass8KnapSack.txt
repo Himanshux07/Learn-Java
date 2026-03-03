@@ -1,0 +1,31 @@
+def fractional_knapsack(parcels, capacity):
+    parcels.sort(key=lambda x: x[2], reverse=True)
+    total_profit = 0.0
+    current_weight = 0.0
+
+    for weight, profit, ratio in parcels:
+        if current_weight + weight <= capacity:
+            current_weight += weight
+            total_profit += profit
+        else:
+            remaining = capacity - current_weight
+            fraction = remaining / weight
+            total_profit += profit * fraction
+            break
+
+    return total_profit
+
+
+n = int(input("Enter number of parcels: "))
+parcels = []
+
+print("Enter weight and profit of each parcel:")
+for i in range(n):
+    weight, profit = map(float, input(f"Parcel {i + 1} (Weight Profit): ").split())
+    ratio = profit / weight
+    parcels.append((weight, profit, ratio))
+
+capacity = float(input("Enter truck capacity: "))
+
+max_profit = fractional_knapsack(parcels, capacity)
+print(f"\nMaximum Profit: {max_profit}")

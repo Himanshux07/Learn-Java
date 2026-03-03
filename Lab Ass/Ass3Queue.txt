@@ -1,0 +1,123 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Circularqueue{
+   public :
+        int arr[5];
+        int front,rear;
+        
+        Circularqueue(){
+           front =-1;
+           rear=-1;
+        }
+        
+        bool isFull(){
+           return ((rear+1)%5==front);
+        }
+        
+        bool isEmpty(){
+           return rear==-1;
+        }
+        
+        void enqueue(int value) {
+        if (isFull()) {
+            cout << "Queue is full!!!!!!!!!!" << endl;
+            return;
+        }
+
+        if (isEmpty()) {
+            front = rear = 0;
+        }
+        else{
+            rear=(rear+1)%5;
+        }
+
+        arr[rear] = value;
+        cout<<"Inserted " << value<<endl;
+    }
+    
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "Queue is Empty!!!!!!!!!!!!!!" << endl;
+            return;
+        }
+
+        cout << "Deleted: " << arr[front]<<endl;
+
+        if (front == rear) {
+            front = rear = -1;
+        }
+        else{
+            front=(front+1)%5;
+        }
+    }
+    
+    void display(){
+        if (isEmpty()) {
+            cout << "Queue is Empty!!!!!!!!!!" << endl;
+            return;
+        }
+
+        cout << "elements: ";
+        if (rear >= front) {
+            for (int i = front; i <= rear; i++)
+                cout << arr[i] << " ";
+        }
+        else{
+            for (int i=front;i<5;i++)
+                cout << arr[i] << " ";
+            for (int i=0;i<=rear;i++)
+                cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main(){
+    Circularqueue queue;
+    int n;
+    
+    do{
+    
+      cout<<"What do you want to do"<<endl;
+      cout<<"1.Check isFull"<<endl;
+      cout<<"2.Check isEmpty"<<endl;
+      cout<<"3.Enqueue an element"<<endl;
+      cout<<"4.Dequeue an element"<<endl;
+      cout<<"5.Display"<<endl;
+      cout<<"6.Exit"<<endl;
+      
+      cin>>n;
+      switch(n){
+         case 1: if(queue.isFull()) cout<<"Queue is full!!!!!!!!!!"<<endl;
+                 else cout<<"Queue is not full!!!!!!!!!!"<<endl;
+                 break;
+                 
+                 
+         case 2: if(queue.isEmpty()) cout<<"Queue is Empty!!!!!!!!!!"<<endl;
+                 else cout<<"Queue is not Empty!!!!!!!!!!"<<endl;
+                 break;
+                 
+                 
+         case 3: cout<<"Enter Element to insert"<<endl;
+                 int val;
+                 cin>>val;
+                 queue.enqueue(val);
+              break;
+         case 4: queue.dequeue();
+              break;
+         case 5: queue.display();
+              break;
+         case 6: cout<<"Exited.............."<<endl;
+              break;
+              
+        
+              
+      }
+      cout<<"____________________________________________________________________"<<endl;
+      
+    }while(n!=6);
+    
+    
+}

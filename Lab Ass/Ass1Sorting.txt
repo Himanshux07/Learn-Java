@@ -1,0 +1,169 @@
+#include <iostream>
+using namespace std;
+
+struct Student {
+    int Rollno;
+    string name;
+    float cgpa;
+};
+
+void display(Student* s[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "-------------------------------------------------\n";
+        cout << "Record: " << i + 1 << endl;
+        cout << "Rollno: " << s[i]->Rollno << endl;
+        cout << "Name: " << s[i]->name << endl;
+        cout << "CGPA: " << s[i]->cgpa << endl;
+        cout << "-------------------------------------------------\n";
+    }
+}
+
+void sortname_bubblesort(Student* s[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (s[j]->name > s[j + 1]->name) {
+                Student* temp = s[j];
+                s[j] = s[j + 1];
+                s[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void sortname_insertion(Student* s[], int n) {
+    for (int i = 1; i < n; i++) {
+        Student* key = s[i];
+        int j = i - 1;
+
+        while (j >= 0 && s[j]->name > key->name) {
+            s[j + 1] = s[j];
+            j--;
+        }
+        s[j + 1] = key;
+    }
+}
+
+void sortroll_bubblesort(Student* s[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (s[j]->Rollno > s[j + 1]->Rollno) {
+                Student* temp = s[j];
+                s[j] = s[j + 1];
+                s[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void Binarysearch(Student* s[], int n) {
+    int target;
+    cout << "Enter your target Rollno: ";
+    cin >> target;
+
+    int start = 0, end = n - 1;
+
+    while (start <= end) {
+        int mid = (start + end) / 2;
+
+        if (s[mid]->Rollno == target) {
+            cout << "\nRecord Found:\n";
+            cout << "Rollno: " << s[mid]->Rollno << endl;
+            cout << "Name: " << s[mid]->name << endl;
+            cout << "CGPA: " << s[mid]->cgpa << endl;
+            return;
+        }
+
+        if (s[mid]->Rollno < target)
+            start = mid + 1;
+        else
+            end = mid - 1;
+    }
+
+    cout << "Record not found.\n";
+}
+
+void linearsearch(Student* s[], int n) {
+    int target;
+    cout << "Enter Target Rollno: ";
+    cin >> target;
+
+    for (int i = 0; i < n; i++) {
+        if (s[i]->Rollno == target) {
+            cout << "\nRecord Found:\n";
+            cout << "Rollno: " << s[i]->Rollno << endl;
+            cout << "Name: " << s[i]->name << endl;
+            cout << "CGPA: " << s[i]->cgpa << endl;
+            return;
+        }
+    }
+
+    cout << "Record not found.\n";
+}
+
+int main() {
+    int n;
+    cout << "Enter number of students: ";
+    cin >> n;
+
+    Student* s[n];
+
+    for (int i = 0; i < n; i++) {
+        s[i] = new Student;
+        cout << "\nEnter details for student " << i + 1 << ":\n";
+        cout << "Enter RollNo: ";
+        cin >> s[i]->Rollno;
+
+        cout << "Enter Name: ";
+        cin >> s[i]->name;
+
+        cout << "Enter CGPA: ";
+        cin >> s[i]->cgpa;
+    }
+
+    bool running = true;
+
+    do {
+        int q;
+        cout << "\n========= MENU =========\n";
+        cout << "1. Sort by Name (Bubble Sort)\n";
+        cout << "2. Sort by Name (Insertion Sort)\n";
+        cout << "3. Linear Search\n";
+        cout << "4. Sort by Roll (Bubble Sort) + Binary Search\n";
+        cout << "5. Exit\n";
+        cout << "========================\n";
+        cout << "Enter your choice: ";
+        cin >> q;
+
+        switch (q) {
+            case 1:
+                sortname_bubblesort(s, n);
+                display(s, n);
+                break;
+
+            case 2:
+                sortname_insertion(s, n);
+                display(s, n);
+                break;
+
+            case 3:
+                linearsearch(s, n);
+                break;
+
+            case 4:
+                sortroll_bubblesort(s, n);
+                Binarysearch(s, n);
+                break;
+
+            case 5:
+                cout << "Exiting program...\n";
+                running = false;
+                break;
+
+            default:
+                cout << "Invalid choice! Please try again.\n";
+        }
+
+    } while (running);
+
+    return 0;
+}
